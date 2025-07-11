@@ -42,6 +42,9 @@ export default function ContaPhotoPost() {
         <Input label="Nome" name="nome" type="text" />
         <Input label="Peso" name="peso" type="number" />
         <Input label="Idade" name="idade" type="number" />
+        {/* Novos campos adicionados aqui */}
+        <Input label="Cidade" name="cidade" type="text" />
+        <Input label="Bairro" name="bairro" type="text" />
         <input
           onChange={handleImgChange}
           type="file"
