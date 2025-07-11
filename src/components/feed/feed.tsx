@@ -5,6 +5,18 @@ import FeedPhotos from './feed-photos';
 import React from 'react';
 import Loading from '@/components/helper/loading';
 import styles from './feed.module.css';
+// Importe o novo componente que você criou
+import RotatingHeadline from './RotatingHeadline';
+
+// Importe a fonte Spectral do Google via next/font
+import { Spectral } from 'next/font/google';
+
+// Configure a fonte
+const spectral = Spectral({
+  weight: ['700'],
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export default function Feed({
   photos,
@@ -20,9 +32,21 @@ export default function Feed({
     photos.length < 6 ? false : true,
   );
 
+  const headlineTexts = [
+    "Adote - Salve uma vida ❤️",
+    "Encontre seu melhor amigo 🐾",
+    "Um ato de amor, uma vida de alegria ✨",
+    "Eles só precisam de uma chance 🙏",
+    "Abra seu coração, adote um pet 🏡",
+    "Adoção é o elo que nos une 🔗",
+    "Mude uma vida para sempre. Adote! 💖",
+    "Menos um na rua, mais amor na sua casa 🏠",
+    "Encontre a felicidade de quatro patas 🐕",
+    "Seja o herói na vida de um animal 🦸"
+  ];
+
   const fetching = React.useRef(false);
   function infiniteScroll() {
-    console.log('aconteceu');
     if (fetching.current) return;
     fetching.current = true;
     setLoading(true);
@@ -38,9 +62,7 @@ export default function Feed({
     async function getPagePhotos(page: number) {
       const actionData = await photosGet(
         { page, total: 6, user: 0 },
-        {
-          cache: 'no-store',
-        },
+        { cache: 'no-store' },
       );
       if (actionData && actionData.data !== null) {
         const { data } = actionData;
@@ -67,6 +89,12 @@ export default function Feed({
 
   return (
     <div>
+      {/* Substitua o h1 estático pelo novo componente com a fonte */}
+      <RotatingHeadline
+        texts={headlineTexts}
+        fontClassName={spectral.className}
+      />
+
       <FeedPhotos photos={photosFeed} />
       <div className={styles.loadingWrapper}>
         {infinite ? loading && <Loading /> : <p>Não existem mais postagens.</p>}

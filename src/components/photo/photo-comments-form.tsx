@@ -56,6 +56,9 @@ export default function PhotoCommentsForm({
         onChange={({ target }) => setComment(target.value)}
       ></textarea>
       <FormButton />
+      <button type="submit">
+       Adotar
+      </button>
       <ErrorMessage error={state.error} />
     </form>
   );

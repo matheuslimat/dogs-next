@@ -27,7 +27,7 @@ export default async function ContaPage() {
             className="button"
             style={{ display: 'inline-block' }}
           >
-            Postar Foto
+            Postar
           </Link>
         </div>
       )}

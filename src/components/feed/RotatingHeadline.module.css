@@ -1,0 +1,8 @@
+.headline {
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+
+.headline.fading {
+  opacity: 0;
+}

@@ -39,12 +39,12 @@
 
 .nav :global(a.active) {
   background: white;
-  box-shadow: 0 0 0 3px #fea;
-  border-color: #fb1;
+  box-shadow: 0 0 0 3px rgb(142, 211, 243);
+  border-color: rgb(17, 168, 255);
 }
 
 .nav :global(a.active) svg > * {
-  fill: #fb1;
+  fill: rgb(17, 168, 255);
 }
 
 .mobileButton {
@@ -77,9 +77,9 @@
 .mobileButtonActive {
   outline: none;
   background: white;
-  box-shadow: 0 0 0 3px #fea;
-  border-color: #fb1;
-  color: #fb1;
+  box-shadow: 0 0 0 3px rgb(142, 211, 243);
+  border-color: rgb(17, 168, 255);
+  color: rgb(17, 168, 255);
 }
 
 .mobileButtonActive::after {
@@ -125,7 +125,7 @@
 
 .navMobile a:hover svg > *,
 .navMobile button:hover svg > * {
-  fill: #fb1;
+  fill: rgb(17, 168, 255);
 }
 
 .navMobile button {
