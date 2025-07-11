@@ -6,8 +6,8 @@ import React from 'react';
 import Loading from '@/components/helper/loading';
 import styles from './feed.module.css';
 import RotatingHeadline from './RotatingHeadline';
-
 import { Spectral } from 'next/font/google';
+import AdoptionSwitch from './AdoptionSwitch';
 
 const spectral = Spectral({
   weight: ['700'],
@@ -29,17 +29,19 @@ export default function Feed({
     photos.length < 6 ? false : true,
   );
 
+  const [adoptedFilter, setAdoptedFilter] = React.useState(false);
+
   const headlineTexts = [
-    "Adote - Salve uma vida ❤️",
-    "Encontre seu melhor amigo 🐾",
-    "Um ato de amor, uma vida de alegria ✨",
-    "Eles só precisam de uma chance 🙏",
-    "Abra seu coração, adote um pet 🏡",
-    "Adoção é o elo que nos une 🔗",
-    "Mude uma vida para sempre. Adote! 💖",
-    "Menos um na rua, mais amor na sua casa 🏠",
-    "Encontre a felicidade de quatro patas 🐕",
-    "Seja o herói na vida de um animal 🦸"
+    'Adote - Salve uma vida ❤️',
+    'Encontre seu melhor amigo 🐾',
+    'Um ato de amor, uma vida de alegria ✨',
+    'Eles só precisam de uma chance 🙏',
+    'Abra seu coração, adote um pet 🏡',
+    'Adoção é o elo que nos une 🔗',
+    'Mude uma vida para sempre. Adote! 💖',
+    'Menos um na rua, mais amor na sua casa 🏠',
+    'Encontre a felicidade de quatro patas 🐕',
+    'Seja o herói na vida de um animal 🦸',
   ];
 
   const fetching = React.useRef(false);
@@ -53,6 +55,14 @@ export default function Feed({
       setLoading(false);
     }, 1000);
   }
+
+  const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAdoptedFilter(event.target.checked);
+    // TODO: Futuramente,  adicionar a lógica de filtragem de fotos aqui
+    console.log(
+      event.target.checked ? 'Filtrando por Adotados' : 'Filtrando por Não adotados',
+    );
+  };
 
   React.useEffect(() => {
     if (page === 1) return;
@@ -87,14 +97,21 @@ export default function Feed({
   return (
     <div>
       {}
-      <RotatingHeadline
-        texts={headlineTexts}
-        fontClassName={spectral.className}
-      />
+      <div className={styles.feedHeader}>
+        <RotatingHeadline
+          texts={headlineTexts}
+          fontClassName={spectral.className}
+        />
+        <AdoptionSwitch checked={adoptedFilter} onChange={handleFilterChange} />
+      </div>
 
       <FeedPhotos photos={photosFeed} />
       <div className={styles.loadingWrapper}>
-        {infinite ? loading && <Loading /> : <p>Não existem mais postagens.</p>}
+        {infinite ? (
+          loading && <Loading />
+        ) : (
+          <p>Não existem mais postagens.</p>
+        )}
       </div>
     </div>
   );

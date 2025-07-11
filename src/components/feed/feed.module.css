@@ -70,3 +70,10 @@
   margin: auto;
   color: #888;
 }
+
+.feedHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}

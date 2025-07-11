@@ -36,7 +36,7 @@
   color: #333;
   background: transparent;
   font-size: 1rem;
-  padding: 0 1rem;
+  padding: 0 0.3rem;
   overflow: hidden;
 }
 
@@ -63,4 +63,10 @@
   to {
     opacity: 1;
   }
+}
+
+.actionsContainer {
+  display: flex;
+  align-items: stretch;
+  gap: 0.1rem;
 }

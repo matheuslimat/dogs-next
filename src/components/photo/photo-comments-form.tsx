@@ -7,6 +7,7 @@ import ErrorMessage from '../helper/error-message';
 import { Comment } from '@/actions/photo-get';
 import commentPost from '@/actions/comment-post';
 import React from 'react';
+import PawHandsIcon from '@/icons/PawHandsIcon';
 
 function FormButton() {
   const { pending } = useFormStatus();
@@ -32,6 +33,8 @@ export default function PhotoCommentsForm({
     error: '',
   });
 
+  const [comment, setComment] = React.useState('');
+
   React.useEffect(() => {
     if (state.ok && state.data) {
       setComments((comments) => [...comments, state.data]);
@@ -39,7 +42,9 @@ export default function PhotoCommentsForm({
     }
   }, [state, setComments]);
 
-  const [comment, setComment] = React.useState('');
+  function handleAdoptClick() {
+    window.alert(`Demonstrando interesse em adotar o pet ID: ${id}`);
+  }
 
   return (
     <form
@@ -55,10 +60,19 @@ export default function PhotoCommentsForm({
         value={comment}
         onChange={({ target }) => setComment(target.value)}
       ></textarea>
-      <FormButton />
-      <button type="submit">
-       Adotar
-      </button>
+
+      <div className={styles.actionsContainer}>
+        <FormButton />
+        <button
+          type="button"
+          className={styles.button}
+          onClick={handleAdoptClick}
+          aria-label="Adotar"
+        >
+          <PawHandsIcon />
+        </button>
+      </div>
+
       <ErrorMessage error={state.error} />
     </form>
   );
