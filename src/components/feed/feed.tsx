@@ -8,12 +8,32 @@ import styles from './feed.module.css';
 import RotatingHeadline from './RotatingHeadline';
 import { Spectral } from 'next/font/google';
 import AdoptionSwitch from './AdoptionSwitch';
+import FeedAdotados from './FeedAdotados';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const spectral = Spectral({
   weight: ['700'],
   subsets: ['latin'],
   display: 'swap',
 });
+
+const variants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? '100%' : '-100%',
+    opacity: 0,
+    position: 'absolute',
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    position: 'relative',
+  },
+  exit: (direction: number) => ({
+    x: direction < 0 ? '100%' : '-100%',
+    opacity: 0,
+    position: 'absolute',
+  }),
+};
 
 export default function Feed({
   photos,
@@ -29,7 +49,8 @@ export default function Feed({
     photos.length < 6 ? false : true,
   );
 
-  const [adoptedFilter, setAdoptedFilter] = React.useState(false);
+  const [view, setView] = React.useState<'default' | 'adopted'>('default');
+  const [direction, setDirection] = React.useState(0);
 
   const headlineTexts = [
     'Adote - Salve uma vida ❤️',
@@ -46,7 +67,7 @@ export default function Feed({
 
   const fetching = React.useRef(false);
   function infiniteScroll() {
-    if (fetching.current) return;
+    if (fetching.current || view === 'adopted') return;
     fetching.current = true;
     setLoading(true);
     setTimeout(() => {
@@ -56,12 +77,14 @@ export default function Feed({
     }, 1000);
   }
 
-  const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAdoptedFilter(event.target.checked);
-    // TODO: Futuramente,  adicionar a lógica de filtragem de fotos aqui
-    console.log(
-      event.target.checked ? 'Filtrando por Adotados' : 'Filtrando por Não adotados',
-    );
+  const handleFilterChange = () => {
+    if (view === 'default') {
+      setDirection(1);
+      setView('adopted');
+    } else {
+      setDirection(-1);
+      setView('default');
+    }
   };
 
   React.useEffect(() => {
@@ -81,7 +104,7 @@ export default function Feed({
   }, [page]);
 
   React.useEffect(() => {
-    if (infinite) {
+    if (infinite && view === 'default') {
       window.addEventListener('scroll', infiniteScroll);
       window.addEventListener('wheel', infiniteScroll);
     } else {
@@ -92,26 +115,52 @@ export default function Feed({
       window.removeEventListener('scroll', infiniteScroll);
       window.removeEventListener('wheel', infiniteScroll);
     };
-  }, [infinite]);
+  }, [infinite, view]);
 
   return (
     <div>
-      {}
       <div className={styles.feedHeader}>
         <RotatingHeadline
           texts={headlineTexts}
           fontClassName={spectral.className}
         />
-        <AdoptionSwitch checked={adoptedFilter} onChange={handleFilterChange} />
+        <AdoptionSwitch
+          checked={view === 'adopted'}
+          onChange={handleFilterChange}
+        />
       </div>
 
-      <FeedPhotos photos={photosFeed} />
-      <div className={styles.loadingWrapper}>
-        {infinite ? (
-          loading && <Loading />
-        ) : (
-          <p>Não existem mais postagens.</p>
-        )}
+      <div className={styles.feedContainer}>
+        <AnimatePresence initial={false} custom={direction} mode="wait">
+          <motion.div
+            key={view}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: 'spring', stiffness: 300, damping: 30 },
+              opacity: { duration: 0.2 },
+            }}
+            className={styles.motionDiv}
+          >
+            {view === 'default' ? (
+              <>
+                <FeedPhotos photos={photosFeed} />
+                <div className={styles.loadingWrapper}>
+                  {infinite ? (
+                    loading && <Loading />
+                  ) : (
+                    <p>Não existem mais postagens.</p>
+                  )}
+                </div>
+              </>
+            ) : (
+              <FeedAdotados />
+            )}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );

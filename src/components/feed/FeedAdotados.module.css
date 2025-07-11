@@ -1,0 +1,24 @@
+.photoAdopted {
+  position: relative;
+}
+
+.photoAdopted img {
+  opacity: 0.4;
+  filter: grayscale(80%);
+  transition: 0.3s;
+}
+
+.adoptedOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0.5rem 1rem;
+  border-radius: 0.4rem;
+  font-family: var(--type-first);
+  font-weight: bold;
+  font-size: 1.1rem;
+  pointer-events: none;
+}

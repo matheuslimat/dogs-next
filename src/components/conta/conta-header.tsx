@@ -15,7 +15,7 @@ import { useUser } from '@/context/user-context';
 function getTitle(pathname: string) {
   switch (pathname) {
     case '/conta/postar':
-      return 'Poste Sua Foto';
+      return 'Postar Adoção';
     case '/conta/estatisticas':
       return 'Estatísticas';
     default:

@@ -77,3 +77,12 @@
   align-items: center;
   margin-bottom: 1rem;
 }
+
+.feedContainer {
+  position: relative;
+  overflow-x: hidden;
+}
+
+.motionDiv {
+  width: 100%;
+}
