@@ -43,7 +43,13 @@ const PhotoContent = ({
           </ul>
         </div>
       </div>
-      <PhotoComments single={single} id={photo.id} comments={comments} />
+      {/* A mudança está aqui: passamos o objeto 'photo' completo como prop */}
+      <PhotoComments
+        single={single}
+        id={photo.id}
+        comments={comments}
+        photo={photo}
+      />
     </div>
   );
 };

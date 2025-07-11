@@ -4,7 +4,8 @@ import { useFormState, useFormStatus } from 'react-dom';
 import styles from './photo-comments-form.module.css';
 import EnviarIcon from '@/icons/enviar-icon';
 import ErrorMessage from '../helper/error-message';
-import { Comment } from '@/actions/photo-get';
+import { Comment } from '@/actions/photo-get'; // Importa Comment
+import { Photo } from '@/actions/photos-get'; // Importa Photo
 import commentPost from '@/actions/comment-post';
 import React from 'react';
 import PawHandsIcon from '@/icons/PawHandsIcon';
@@ -22,10 +23,12 @@ export default function PhotoCommentsForm({
   single,
   id,
   setComments,
+  photo,
 }: {
   single: boolean;
   id: number;
   setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
+  photo: Photo;
 }) {
   const [state, action] = useFormState(commentPost, {
     ok: false,
@@ -43,7 +46,12 @@ export default function PhotoCommentsForm({
   }, [state, setComments]);
 
   function handleAdoptClick() {
-    window.alert(`Demonstrando interesse em adotar o pet ID: ${id}`);
+    const phoneNumber = '5583988427712';
+    const message = `Olá! Tenho interesse em adotar o pet "${photo.title}", que pesa ${photo.peso}kg e tem ${photo.idade} anos.`;
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+      message,
+    )}`;
+    window.open(whatsappUrl, '_blank');
   }
 
   return (

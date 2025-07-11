@@ -4,12 +4,14 @@ import React from 'react';
 import PhotoCommentsForm from './photo-comments-form';
 import styles from './photo-comments.module.css';
 import { useUser } from '@/context/user-context';
-import { Comment } from '@/actions/photo-get';
+import { Comment } from '@/actions/photo-get'; // Importa Comment
+import { Photo } from '@/actions/photos-get'; // Importa Photo
 
 const PhotoComments = (props: {
   single: boolean;
   id: number;
   comments: Comment[];
+  photo: Photo;
 }) => {
   const [comments, setComments] = React.useState(() => props.comments);
   const commentsSection = React.useRef<HTMLUListElement>(null);
@@ -39,6 +41,7 @@ const PhotoComments = (props: {
           single={props.single}
           id={props.id}
           setComments={setComments}
+          photo={props.photo}
         />
       )}
     </>
