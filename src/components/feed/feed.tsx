@@ -5,13 +5,10 @@ import FeedPhotos from './feed-photos';
 import React from 'react';
 import Loading from '@/components/helper/loading';
 import styles from './feed.module.css';
-// Importe o novo componente que você criou
 import RotatingHeadline from './RotatingHeadline';
 
-// Importe a fonte Spectral do Google via next/font
 import { Spectral } from 'next/font/google';
 
-// Configure a fonte
 const spectral = Spectral({
   weight: ['700'],
   subsets: ['latin'],
@@ -89,7 +86,7 @@ export default function Feed({
 
   return (
     <div>
-      {/* Substitua o h1 estático pelo novo componente com a fonte */}
+      {}
       <RotatingHeadline
         texts={headlineTexts}
         fontClassName={spectral.className}
