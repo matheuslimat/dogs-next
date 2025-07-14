@@ -58,7 +58,7 @@ export default function ContaHeader() {
       >
         <Link href="/conta" className={pathname === '/conta' ? 'active' : ''}>
           <FeedIcon />
-          {mobile && 'Minhas Fotos'}
+          {mobile && 'Minhas Adoções'}
         </Link>
         <Link
           href="/conta/estatisticas"
@@ -72,7 +72,7 @@ export default function ContaHeader() {
           className={pathname === '/conta/postar' ? 'active' : ''}
         >
           <AdicionarIcon />
-          {mobile && 'Adicionar Foto'}
+          {mobile && 'Postar Adoção'}
         </Link>
         <button onClick={handleLogout}>
           <SairIcon />
