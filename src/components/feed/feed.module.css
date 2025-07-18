@@ -86,3 +86,49 @@
 .motionDiv {
   width: 100%;
 }
+
+.filtersContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.filterButton {
+  background: none;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.filterButton:hover {
+  background: #f0f0f0;
+  border-color: #999;
+}
+
+.cityFilterContainer {
+  margin-bottom: 2rem;
+}
+
+.cityFilterInput {
+  display: block;
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #eee;
+  border-radius: 0.4rem;
+  background: #eee;
+  transition: 0.2s;
+}
+
+.cityFilterInput:focus,
+.cityFilterInput:hover {
+  outline: none;
+  border-color: rgb(17, 168, 255);
+  background: white;
+  box-shadow: 0 0 0 3px rgb(142, 211, 243);
+}

@@ -10,6 +10,7 @@ import { Spectral } from 'next/font/google';
 import AdoptionSwitch from './AdoptionSwitch';
 import FeedAdotados from './FeedAdotados';
 import { motion, AnimatePresence } from 'framer-motion';
+import FilterIcon from '@/icons/FilterIcon';
 
 const spectral = Spectral({
   weight: ['700'],
@@ -45,12 +46,15 @@ export default function Feed({
   const [photosFeed, setPhotosFeed] = React.useState<Photo[]>(photos);
   const [page, setPage] = React.useState(1);
   const [loading, setLoading] = React.useState(false);
-  const [infinite, setInfinite] = React.useState(
-    photos.length < 6 ? false : true,
-  );
+  const [infinite, setInfinite] = React.useState(photos.length >= 6);
 
   const [view, setView] = React.useState<'default' | 'adopted'>('default');
   const [direction, setDirection] = React.useState(0);
+
+  // Estados para o filtro de cidade
+  const [filteredPhotos, setFilteredPhotos] = React.useState<Photo[]>(photos);
+  const [showCityFilter, setShowCityFilter] = React.useState(false);
+  const [city, setCity] = React.useState('');
 
   const headlineTexts = [
     'Adote - Salve uma vida ❤️',
@@ -67,7 +71,7 @@ export default function Feed({
 
   const fetching = React.useRef(false);
   function infiniteScroll() {
-    if (fetching.current || view === 'adopted') return;
+    if (fetching.current || view === 'adopted' || city.trim() !== '') return; // Desabilita scroll infinito se estiver filtrando
     fetching.current = true;
     setLoading(true);
     setTimeout(() => {
@@ -117,6 +121,17 @@ export default function Feed({
     };
   }, [infinite, view]);
 
+  React.useEffect(() => {
+    if (city.trim() === '') {
+      setFilteredPhotos(photosFeed);
+    } else {
+      const newFilteredPhotos = photosFeed.filter((photo) =>
+        photo.cidade.toLowerCase().includes(city.toLowerCase()),
+      );
+      setFilteredPhotos(newFilteredPhotos);
+    }
+  }, [city, photosFeed]);
+
   return (
     <div>
       <div className={styles.feedHeader}>
@@ -124,11 +139,41 @@ export default function Feed({
           texts={headlineTexts}
           fontClassName={spectral.className}
         />
-        <AdoptionSwitch
-          checked={view === 'adopted'}
-          onChange={handleFilterChange}
-        />
+        {/* Container para agrupar os filtros */}
+        <div className={styles.filtersContainer}>
+          <AdoptionSwitch
+            checked={view === 'adopted'}
+            onChange={handleFilterChange}
+          />
+          <button
+            className={styles.filterButton}
+            onClick={() => setShowCityFilter(!showCityFilter)}
+            aria-label="Filtrar por cidade"
+          >
+            <FilterIcon />
+          </button>
+        </div>
       </div>
+
+      {/* Input do filtro que aparece/desaparece */}
+      <AnimatePresence>
+        {showCityFilter && (
+          <motion.div
+            className={styles.cityFilterContainer}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+          >
+            <input
+              type="text"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              placeholder="Digite o nome da cidade..."
+              className={styles.cityFilterInput}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className={styles.feedContainer}>
         <AnimatePresence initial={false} custom={direction} mode="wait">
@@ -147,12 +192,17 @@ export default function Feed({
           >
             {view === 'default' ? (
               <>
-                <FeedPhotos photos={photosFeed} />
+                {/* Renderiza as fotos FILTRADAS */}
+                <FeedPhotos photos={filteredPhotos} />
                 <div className={styles.loadingWrapper}>
-                  {infinite ? (
+                  {infinite && !city ? ( // Só mostra loading se não estiver filtrando
                     loading && <Loading />
                   ) : (
-                    <p>Não existem mais postagens.</p>
+                    <p>
+                      {filteredPhotos.length === 0 && city
+                        ? `Nenhum resultado para "${city}".`
+                        : 'Não existem mais postagens.'}
+                    </p>
                   )}
                 </div>
               </>
