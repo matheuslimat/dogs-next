@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useUser } from '@/context/user-context';
 import Image from 'next/image';
 import { PhotoData } from '@/actions/photo-get';
+import ExpandirIcon from '@/icons/ExpandirIcon';
 
 const PhotoContent = ({
   data,
@@ -22,7 +23,13 @@ const PhotoContent = ({
   return (
     <div className={`${styles.photo} ${single ? styles.single : ''}`}>
       <div className={styles.img}>
-        <Image src={photo.src} alt={photo.title} width={1000} height={1000} />
+        <Image
+          src={photo.src}
+          alt={photo.title}
+          width={1000}
+          height={1000}
+          style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+        />
       </div>
       <div className={styles.details}>
         <div>
@@ -32,7 +39,14 @@ const PhotoContent = ({
             ) : (
               <Link href={`/perfil/${photo.author}`}>@{photo.author}</Link>
             )}
-            <span className={styles.visualizacoes}>{photo.acessos}</span>
+            <span className={styles.visualizacoes}>
+              {photo.acessos}
+              {!single && (
+                <a href={`/foto/${photo.id}`} className={styles.expandir}>
+                  <ExpandirIcon />
+                </a>
+              )}
+            </span>
           </p>
           <h1 className="title">
             <Link href={`/foto/${photo.id}`}>{photo.title}</Link>
@@ -40,11 +54,12 @@ const PhotoContent = ({
           <ul className={styles.attributes}>
             <li>{photo.peso} kg</li>
             <li>{photo.idade} anos</li>
-            <li>{`${photo.cidade} - ${photo.bairro}`}</li>
+            {photo.cidade && photo.bairro && (
+              <li>{`${photo.cidade} - ${photo.bairro}`}</li>
+            )}
           </ul>
         </div>
       </div>
-      {/* A mudança está aqui: passamos o objeto 'photo' completo como prop */}
       <PhotoComments
         single={single}
         id={photo.id}
