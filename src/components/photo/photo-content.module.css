@@ -104,25 +104,44 @@
 /* ================================================================= */
 
 .attributes {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  font-size: 1.125rem;
-  font-weight: bold;
-  margin-top: 1rem;
+  display: flex; /* Alinha os ícones horizontalmente */
+  align-items: center;
+  gap: 1.5rem; /* Aumenta o espaço entre os ícones */
+  margin-top: 1.5rem;
   margin-bottom: 2rem;
-  gap: 1rem;
+  color: #555;
 }
 
-.attributes li {
+.attributeItem {
+  position: relative; /* Essencial para o posicionamento do tooltip */
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
-.attributes li:not(:first-child)::before {
-  content: '';
-  display: inline-block;
-  height: 20px;
-  margin-right: 0.5rem;
-  width: 2px;
-  background: #333;
+.attributeTooltip {
+  /* Estilo do tooltip */
+  position: absolute;
+  bottom: 125%; /* Posiciona o tooltip acima do ícone */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: normal;
+  white-space: nowrap; /* Impede que o texto quebre a linha */
+  
+  /* Esconde o tooltip por padrão */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+  z-index: 10;
+}
+
+/* Mostra o tooltip ao passar o mouse sobre o item */
+.attributeItem:hover .attributeTooltip {
+  opacity: 1;
+  visibility: visible;
 }

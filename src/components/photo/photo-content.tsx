@@ -9,6 +9,10 @@ import { useUser } from '@/context/user-context';
 import Image from 'next/image';
 import { PhotoData } from '@/actions/photo-get';
 import ExpandirIcon from '@/icons/ExpandirIcon';
+// 1. Importação dos novos ícones
+import PesoIcon from '@/icons/PesoIcon';
+import VelaIcon from '@/icons/VelaIcon';
+import PrediosIcon from '@/icons/PrediosIcon';
 
 const PhotoContent = ({
   data,
@@ -51,13 +55,26 @@ const PhotoContent = ({
           <h1 className="title">
             <Link href={`/foto/${photo.id}`}>{photo.title}</Link>
           </h1>
-          <ul className={styles.attributes}>
-            <li>{photo.peso} kg</li>
-            <li>{photo.idade} anos</li>
+          
+          {/* ====================== A MUDANÇA É AQUI ====================== */}
+          {/* A antiga <ul> foi substituída por esta <div> com os ícones */}
+          <div className={styles.attributes}>
+            <div className={styles.attributeItem}>
+              <PesoIcon />
+              <span className={styles.attributeTooltip}>{photo.peso} kg</span>
+            </div>
+            <div className={styles.attributeItem}>
+              <VelaIcon />
+              <span className={styles.attributeTooltip}>{photo.idade} anos</span>
+            </div>
             {photo.cidade && photo.bairro && (
-              <li>{`${photo.cidade} - ${photo.bairro}`}</li>
+              <div className={styles.attributeItem}>
+                <PrediosIcon />
+                <span className={styles.attributeTooltip}>{`${photo.cidade} - ${photo.bairro}`}</span>
+              </div>
             )}
-          </ul>
+          </div>
+          {/* ================================================================= */}
         </div>
       </div>
       <PhotoComments
