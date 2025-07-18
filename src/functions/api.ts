@@ -41,7 +41,7 @@ export function PHOTOS_GET({
   user: 0 | string;
 }) {
   return {
-    url: `${API_URL}/api/photo/?_page=${page}&_total=${total}&_user=${user}`,
+    url: `${API_URL}/api/photo?_page=${page}&_total=${total}&_user=${user}`,
   };
 }
 

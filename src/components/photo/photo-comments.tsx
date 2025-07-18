@@ -4,8 +4,8 @@ import React from 'react';
 import PhotoCommentsForm from './photo-comments-form';
 import styles from './photo-comments.module.css';
 import { useUser } from '@/context/user-context';
-import { Comment } from '@/actions/photo-get'; // Importa Comment
-import { Photo } from '@/actions/photos-get'; // Importa Photo
+import { Comment } from '@/actions/photo-get';
+import { Photo } from '@/actions/photos-get';
 
 const PhotoComments = (props: {
   single: boolean;
@@ -16,6 +16,10 @@ const PhotoComments = (props: {
   const [comments, setComments] = React.useState(() => props.comments);
   const commentsSection = React.useRef<HTMLUListElement>(null);
   const { user } = useUser();
+
+  React.useEffect(() => {
+    setComments(props.comments);
+  }, [props.comments]);
 
   React.useEffect(() => {
     if (commentsSection.current) {
@@ -30,9 +34,9 @@ const PhotoComments = (props: {
         className={`${styles.comments} ${props.single ? styles.single : ''}`}
       >
         {comments.map((comment) => (
-          <li key={comment.comment_ID}>
-            <b>{comment.comment_author}: </b>
-            <span>{comment.comment_content}</span>
+          <li key={comment.id}> 
+            <b>{comment.author}: </b>
+            <span>{comment.comment}</span>
           </li>
         ))}
       </ul>

@@ -45,10 +45,14 @@ export default function PhotoCommentsForm({
     }
   }, [state, setComments]);
 
+  // logica de whatsapp
   function handleAdoptClick() {
-    const phoneNumber = '5583988427712';
-    const message = `Olá! Tenho interesse em adotar o pet "${photo.title}", que pesa ${photo.peso}kg e tem ${photo.idade} anos.`;
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+
+    const phoneNumberWithCountryCode = `55${photo.telefone}`;
+    
+    const cleanPhoneNumber = phoneNumberWithCountryCode.replace(/\D/g, ''); 
+    const message = `Olá! Vi seu anúncio no site Adopt-me App - Tenho interesse em adotar o pet "${photo.title}", que pesa ${photo.peso}kg e tem ${photo.idade} anos.`;
+    const whatsappUrl = `https://wa.me/${cleanPhoneNumber}?text=${encodeURIComponent(
       message,
     )}`;
     window.open(whatsappUrl, '_blank');

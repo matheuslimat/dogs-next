@@ -11,8 +11,11 @@ export type Photo = {
   src: string;
   peso: string;
   idade: string;
+  cidade: string;
+  bairro: string;
   acessos: string;
   total_comments: string;
+  telefone: string;
 };
 
 type PhotosGetParams = {

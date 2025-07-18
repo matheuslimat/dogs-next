@@ -5,10 +5,10 @@ import apiError from '@/functions/api-error';
 import { Photo } from './photos-get';
 
 export type Comment = {
-  comment_ID: string;
-  comment_post_ID: string;
-  comment_author: string;
-  comment_content: string;
+  id: string;
+  author: string;
+  comment: string;
+  date: string;
 };
 
 export type PhotoData = {
