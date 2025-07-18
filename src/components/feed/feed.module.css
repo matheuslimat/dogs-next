@@ -1,31 +1,37 @@
+/* =================================================================== */
+/* SOLUÇÃO MODERNA: Substituição do Grid por um Layout de Colunas      */
+/* =================================================================== */
+
 .feed {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  /* Define o layout em 3 colunas para telas maiores */
+  column-count: 3;
+  column-gap: 1rem;
   margin-bottom: 1rem;
-  justify-items: center;
 }
 
 @media (max-width: 40rem) {
   .feed {
-    grid-template-columns: repeat(2, 1fr);
+    /* Em telas menores, o layout se ajusta para 2 colunas */
+    column-count: 2;
   }
 }
 
-.photo:nth-child(2) {
-  grid-column: 2 / 4;
-  grid-row: span 2;
+/* A regra especial para o segundo item foi removida pois não é
+   compatível com o layout de colunas fluido. */
+
+.photo {
+  /* Esta é a regra chave: impede que uma foto seja cortada
+     e dividida entre duas colunas. */
+  break-inside: avoid;
+  margin-bottom: 1rem; /* Adiciona o espaçamento vertical entre as fotos */
 }
 
-@media (max-width: 40rem) {
-  .photo:nth-child(2) {
-    grid-column: initial;
-    grid-row: initial;
-  }
-}
+/* =================================================================== */
+/* Estilos existentes que foram mantidos ou ajustados                  */
+/* =================================================================== */
 
 .photo a {
-  display: grid;
+  display: grid; /* Mantemos o grid aqui para o efeito de hover da visualização */
   border-radius: 0.2rem;
   overflow: hidden;
   cursor: pointer;
@@ -33,6 +39,8 @@
 
 .photo img {
   grid-area: 1/1;
+  width: 100%; /* Garante que a imagem preencha a coluna */
+  height: auto;
 }
 
 .visualizacao {
