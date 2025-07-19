@@ -7,8 +7,8 @@ export default async function Footer() {
       <Image
         src={'/assets/dogs-footer.svg'}
         alt="Dogs"
-        width={28}
-        height={22}
+        width={36}
+        height={30}
       />
       <p>Adopt-me. Alguns direitos reservados.</p>
     </footer>

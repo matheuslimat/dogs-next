@@ -23,7 +23,6 @@ const PrediosIcon = () => (
         width="8"
         height="16"
         rx="2"
-        // COR AZUL MAIS CLARA - VOCÊ PODE AJUSTAR ESTE VALOR
         fill="#3291FF"
         stroke="currentColor"
         strokeWidth="4"
@@ -42,7 +41,6 @@ const PrediosIcon = () => (
         width="24"
         height="38"
         rx="2"
-        // COR AZUL MAIS CLARA - VOCÊ PODE AJUSTAR ESTE VALOR
         fill="#3291FF"
         stroke="currentColor"
         strokeWidth="4"

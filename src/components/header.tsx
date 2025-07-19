@@ -13,8 +13,8 @@ export default async function Header() {
           <Image
             src={'/assets/dogs.svg'}
             alt="Dogs"
-            width={28}
-            height={22}
+            width={36}
+            height={30}
             priority
           />
         </Link>
