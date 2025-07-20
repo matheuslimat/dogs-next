@@ -80,3 +80,9 @@ export function STATS_GET() {
     url: API_URL + '/api/stats',
   };
 }
+
+export function COMMENT_DELETE(id: string) {
+  return {
+    url: `${API_URL}/api/comment/${id}`,
+  };
+}

@@ -12,3 +12,41 @@
   margin-bottom: 0.5rem;
   line-height: 1.2;
 }
+
+.commentItem {
+  position: relative;
+  padding: 0.25rem 0;
+}
+
+.commentItem li span {
+  transition: filter 0.2s ease-in-out;
+}
+
+.deleteButton {
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  transform: translateY(-50%);
+  
+  /* Aparência */
+  background-color: #f31;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+
+.commentItem:hover .deleteButton {
+  opacity: 1;
+  visibility: visible;
+}
+
+.commentItem:hover li span {
+  filter: blur(2px);
+}

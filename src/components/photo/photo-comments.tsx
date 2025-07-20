@@ -6,6 +6,7 @@ import styles from './photo-comments.module.css';
 import { useUser } from '@/context/user-context';
 import { Comment } from '@/actions/photo-get';
 import { Photo } from '@/actions/photos-get';
+import CommentDeleteButton from './comment-delete-button'; // 1. Importa o novo botão
 
 const PhotoComments = (props: {
   single: boolean;
@@ -34,10 +35,17 @@ const PhotoComments = (props: {
         className={`${styles.comments} ${props.single ? styles.single : ''}`}
       >
         {comments.map((comment) => (
-          <li key={comment.id}> 
-            <b>{comment.author}: </b>
-            <span>{comment.comment}</span>
-          </li>
+          // 2. Cada comentário agora é envolvido por uma div para controlar o hover
+          <div key={comment.id} className={styles.commentItem}>
+            <li>
+              <b>{comment.author}: </b>
+              <span>{comment.comment}</span>
+            </li>
+            {/* 3. O botão de deletar só aparece se o usuário logado for o autor */}
+            {user && user.username === comment.author && (
+              <CommentDeleteButton id={comment.id} setComments={setComments} />
+            )}
+          </div>
         ))}
       </ul>
       {user && (
