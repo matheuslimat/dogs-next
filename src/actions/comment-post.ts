@@ -22,7 +22,7 @@ export default async function commentPost(state: {}, formData: FormData) {
     });
     if (!response.ok) throw new Error('Email ou usuário já cadastrado.');
     const data = (await response.json()) as Comment;
-    revalidateTag('comment');
+    revalidateTag('photos');
     return { data, ok: true, error: '' };
   } catch (error: unknown) {
     return apiError(error);

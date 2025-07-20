@@ -22,10 +22,10 @@ export default async function photoGet(id: string) {
     const response = await fetch(url, {
       next: {
         revalidate: 60,
-        tags: ['photos', 'comment'],
+        tags: ['photos'],
       },
     });
-    if (!response.ok) throw new Error('Erro ao pegar a foto.');
+    if (!response.ok) throw new Error('Erro ao recuperar a foto.');
     const data = (await response.json()) as PhotoData;
     return { data, ok: true, error: '' };
   } catch (error) {
