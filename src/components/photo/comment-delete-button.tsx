@@ -2,30 +2,46 @@
 import React from 'react';
 import styles from './photo-comments.module.css';
 import commentDelete from '@/actions/comment-delete';
+import { Comment } from '@/actions/photos-get';
+import { useRouter } from 'next/navigation';
 
-type CommentUpdater = React.Dispatch<React.SetStateAction<any[]>>;
+type CommentUpdater = React.Dispatch<React.SetStateAction<Comment[]>>;
 
-export default function CommentDeleteButton({ id, setComments }: { id: string, setComments: CommentUpdater }) {
+export default function CommentDeleteButton({
+  id,
+  setComments,
+}: {
+  id: string;
+  setComments: CommentUpdater;
+}) {
   const [loading, setLoading] = React.useState(false);
+  const router = useRouter();
 
   async function handleClick() {
-    const confirm = window.confirm('Tem certeza que deseja deletar este comentário?');
-    if (confirm) {
-      setLoading(true);
-      const { ok } = await commentDelete(id);
-      if (ok) {
-        setComments(comments => comments.filter(comment => comment.comment_ID !== id));
-      }
-      setLoading(false);
+    setLoading(true);
+    const { ok } = await commentDelete(id);
+    setLoading(false);
+
+    if (ok) {
+      // Remove o comentário da lista na tela instantaneamente
+      setComments((currentComments) =>
+        currentComments.filter((comment) => comment.id !== id),
+      );
+      // Força a sincronização dos dados da página em segundo plano
+      router.refresh();
     }
   }
 
   return (
     <>
       {loading ? (
-        <button className={styles.deleteButton} disabled>Deletando...</button>
+        <button className={styles.deleteButton} disabled>
+          Deletando...
+        </button>
       ) : (
-        <button className={styles.deleteButton} onClick={handleClick}>Deletar</button>
+        <button className={styles.deleteButton} onClick={handleClick}>
+          Deletar
+        </button>
       )}
     </>
   );

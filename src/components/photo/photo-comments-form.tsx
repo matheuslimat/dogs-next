@@ -38,9 +38,12 @@ export default function PhotoCommentsForm({
 
   const [comment, setComment] = React.useState('');
 
+  // Este useEffect garante a atualização otimista
   React.useEffect(() => {
     if (state.ok && state.data) {
+      // Adiciona o novo comentário à lista local instantaneamente
       setComments((comments) => [...comments, state.data]);
+      // Limpa o campo de texto
       setComment('');
     }
   }, [state, setComments]);

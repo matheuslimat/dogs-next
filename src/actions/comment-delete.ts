@@ -17,7 +17,7 @@ export default async function commentDelete(id: string) {
       },
     });
     if (!response.ok) throw new Error('Erro ao deletar o comentário.');
-    revalidateTag('comment');
+    revalidateTag('photos');
     return { ok: true, error: '' };
   } catch (error: unknown) {
     return apiError(error);
