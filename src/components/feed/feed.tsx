@@ -8,7 +8,6 @@ import styles from './feed.module.css';
 import RotatingHeadline from './RotatingHeadline';
 import { Spectral } from 'next/font/google';
 import AdoptionSwitch from './AdoptionSwitch';
-import FeedAdotados from './FeedAdotados';
 import { motion, AnimatePresence } from 'framer-motion';
 import FilterIcon from '@/icons/FilterIcon';
 
@@ -44,6 +43,7 @@ export default function Feed({
   user?: 0 | string;
 }) {
   const [photosFeed, setPhotosFeed] = React.useState<Photo[]>(photos);
+  const [adoptedPhotos, setAdoptedPhotos] = React.useState<Photo[]>([]);
   const [page, setPage] = React.useState(1);
   const [loading, setLoading] = React.useState(false);
   const [infinite, setInfinite] = React.useState(photos.length >= 6);
@@ -51,7 +51,6 @@ export default function Feed({
   const [view, setView] = React.useState<'default' | 'adopted'>('default');
   const [direction, setDirection] = React.useState(0);
 
-  // Estados para o filtro de cidade
   const [filteredPhotos, setFilteredPhotos] = React.useState<Photo[]>(photos);
   const [showCityFilter, setShowCityFilter] = React.useState(false);
   const [city, setCity] = React.useState('');
@@ -71,7 +70,7 @@ export default function Feed({
 
   const fetching = React.useRef(false);
   function infiniteScroll() {
-    if (fetching.current || view === 'adopted' || city.trim() !== '') return; // Desabilita scroll infinito se estiver filtrando
+    if (fetching.current || view === 'adopted' || city.trim() !== '') return;
     fetching.current = true;
     setLoading(true);
     setTimeout(() => {
@@ -81,10 +80,16 @@ export default function Feed({
     }, 1000);
   }
 
-  const handleFilterChange = () => {
+  const handleFilterChange = async () => {
     if (view === 'default') {
       setDirection(1);
       setView('adopted');
+      setLoading(true);
+      const actionData = await photosGet({ adotado: true });
+      if (actionData && actionData.data) {
+        setAdoptedPhotos(actionData.data);
+      }
+      setLoading(false);
     } else {
       setDirection(-1);
       setView('default');
@@ -139,7 +144,6 @@ export default function Feed({
           texts={headlineTexts}
           fontClassName={spectral.className}
         />
-        {/* Container para agrupar os filtros */}
         <div className={styles.filtersContainer}>
           <AdoptionSwitch
             checked={view === 'adopted'}
@@ -155,7 +159,6 @@ export default function Feed({
         </div>
       </div>
 
-      {/* Input do filtro que aparece/desaparece */}
       <AnimatePresence>
         {showCityFilter && (
           <motion.div
@@ -192,10 +195,9 @@ export default function Feed({
           >
             {view === 'default' ? (
               <>
-                {/* Renderiza as fotos FILTRADAS */}
                 <FeedPhotos photos={filteredPhotos} />
                 <div className={styles.loadingWrapper}>
-                  {infinite && !city ? ( // Só mostra loading se não estiver filtrando
+                  {infinite && !city ? (
                     loading && <Loading />
                   ) : (
                     <p>
@@ -207,7 +209,7 @@ export default function Feed({
                 </div>
               </>
             ) : (
-              <FeedAdotados />
+              <FeedPhotos photos={adoptedPhotos} />
             )}
           </motion.div>
         </AnimatePresence>

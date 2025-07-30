@@ -16,23 +16,25 @@ export type Photo = {
   acessos: string;
   total_comments: string;
   telefone: string;
+  adotado: boolean;
 };
 
 type PhotosGetParams = {
   page?: number;
   total?: number;
   user?: 0 | string;
+  adotado?: boolean;
 };
 
 export default async function photosGet(
-  { page = 1, total = 6, user = 0 }: PhotosGetParams = {},
+  { page = 1, total = 6, user = 0, adotado }: PhotosGetParams = {},
   optionsFront?: RequestInit,
 ) {
   try {
     const options = optionsFront || {
       next: { revalidate: 10, tags: ['photos'] },
     };
-    const { url } = PHOTOS_GET({ page, total, user });
+    const { url } = PHOTOS_GET({ page, total, user, adotado });
     const response = await fetch(url, options);
     if (!response.ok) throw new Error('Erro ao pegar as fotos.');
     const data = (await response.json()) as Photo[];

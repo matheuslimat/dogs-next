@@ -9,10 +9,10 @@ import { useUser } from '@/context/user-context';
 import Image from 'next/image';
 import { PhotoData } from '@/actions/photo-get';
 import ExpandirIcon from '@/icons/ExpandirIcon';
-// 1. Importação dos novos ícones
 import PesoIcon from '@/icons/PesoIcon';
 import VelaIcon from '@/icons/VelaIcon';
 import PrediosIcon from '@/icons/PrediosIcon';
+import PhotoAdoptButton from './photo-adopt-button';
 
 const PhotoContent = ({
   data,
@@ -39,7 +39,10 @@ const PhotoContent = ({
         <div>
           <p className={styles.author}>
             {user && user.username === photo.author ? (
-              <PhotoDelete id={String(photo.id)} />
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <PhotoDelete id={String(photo.id)} />
+                <PhotoAdoptButton id={String(photo.id)} />
+              </div>
             ) : (
               <Link href={`/perfil/${photo.author}`}>@{photo.author}</Link>
             )}
@@ -56,8 +59,6 @@ const PhotoContent = ({
             <Link href={`/foto/${photo.id}`}>{photo.title}</Link>
           </h1>
           
-          {/* ====================== A MUDANÇA É AQUI ====================== */}
-          {/* A antiga <ul> foi substituída por esta <div> com os ícones */}
           <div className={styles.attributes}>
             <div className={styles.attributeItem}>
               <PesoIcon />
@@ -74,7 +75,6 @@ const PhotoContent = ({
               </div>
             )}
           </div>
-          {/* ================================================================= */}
         </div>
       </div>
       <PhotoComments

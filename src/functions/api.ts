@@ -35,13 +35,19 @@ export function PHOTOS_GET({
   page,
   total,
   user,
+  adotado,
 }: {
   page: number;
   total: number;
   user: 0 | string;
+  adotado?: boolean;
 }) {
+  let url = `${API_URL}/api/photo?_page=${page}&_total=${total}&_user=${user}`;
+  if (adotado !== undefined) {
+    url += `&_adotado=${adotado}`;
+  }
   return {
-    url: `${API_URL}/api/photo?_page=${page}&_total=${total}&_user=${user}`,
+    url,
   };
 }
 
@@ -84,5 +90,11 @@ export function STATS_GET() {
 export function COMMENT_DELETE(id: string) {
   return {
     url: `${API_URL}/api/comment/${id}`,
+  };
+}
+
+export function PHOTO_ADOPT(id: string) {
+  return {
+    url: `${API_URL}/api/photo/${id}/adopt`,
   };
 }
