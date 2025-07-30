@@ -52,6 +52,8 @@ export default function Feed({
   const [direction, setDirection] = React.useState(0);
 
   const [filteredPhotos, setFilteredPhotos] = React.useState<Photo[]>(photos);
+  // ✅ **NOVO ESTADO:** Armazena os cães adotados e filtrados por cidade
+  const [filteredAdoptedPhotos, setFilteredAdoptedPhotos] = React.useState<Photo[]>([]);
   const [showCityFilter, setShowCityFilter] = React.useState(false);
   const [city, setCity] = React.useState('');
 
@@ -88,6 +90,7 @@ export default function Feed({
       const actionData = await photosGet({ adotado: true });
       if (actionData && actionData.data) {
         setAdoptedPhotos(actionData.data);
+        setFilteredAdoptedPhotos(actionData.data);
       }
       setLoading(false);
     } else {
@@ -110,7 +113,7 @@ export default function Feed({
       }
     }
     getPagePhotos(page);
-  }, [page]);
+  }, [page, user]);
 
   React.useEffect(() => {
     if (infinite && view === 'default') {
@@ -126,16 +129,24 @@ export default function Feed({
     };
   }, [infinite, view]);
 
+
   React.useEffect(() => {
-    if (city.trim() === '') {
+    const cityFilter = city.trim().toLowerCase();
+    if (cityFilter === '') {
       setFilteredPhotos(photosFeed);
+      setFilteredAdoptedPhotos(adoptedPhotos);
     } else {
       const newFilteredPhotos = photosFeed.filter((photo) =>
-        photo.cidade.toLowerCase().includes(city.toLowerCase()),
+        photo.cidade.toLowerCase().includes(cityFilter),
       );
       setFilteredPhotos(newFilteredPhotos);
+
+      const newFilteredAdopted = adoptedPhotos.filter((photo) =>
+        photo.cidade.toLowerCase().includes(cityFilter),
+      );
+      setFilteredAdoptedPhotos(newFilteredAdopted);
     }
-  }, [city, photosFeed]);
+  }, [city, photosFeed, adoptedPhotos]);
 
   return (
     <div>
@@ -209,7 +220,7 @@ export default function Feed({
                 </div>
               </>
             ) : (
-              <FeedPhotos photos={adoptedPhotos} />
+              <FeedPhotos photos={filteredAdoptedPhotos} />
             )}
           </motion.div>
         </AnimatePresence>
