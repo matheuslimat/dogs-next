@@ -41,7 +41,11 @@ const PhotoContent = ({
             {user && user.username === photo.author ? (
               <div style={{ display: 'flex', gap: '0.5rem' }}>
                 <PhotoDelete id={String(photo.id)} />
-                <PhotoAdoptButton id={String(photo.id)} />
+                {/* Passando o status de adoção para o botão */}
+                <PhotoAdoptButton
+                  id={String(photo.id)}
+                  initialAdopted={photo.adotado}
+                />
               </div>
             ) : (
               <Link href={`/perfil/${photo.author}`}>@{photo.author}</Link>

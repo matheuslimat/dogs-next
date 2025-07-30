@@ -1,6 +1,6 @@
-.adopt {
-  background: #28a745;
-  color: white;
+/* Estilo base, similar ao de deletar */
+.button {
+  background: #ddd;
   padding: 0.3rem 0.6rem;
   line-height: 1;
   border: 1px solid transparent;
@@ -11,10 +11,23 @@
   transition: 0.1s;
 }
 
-.adopt:focus,
-.adopt:hover {
+.button:focus,
+.button:hover {
   outline: none;
-  background: #218838;
+  background: white;
   box-shadow: 0 0 0 3px #eee;
   border-color: #333;
+}
+
+/* Novo estilo para o botão quando o pet está adotado */
+.adopted {
+  background: rgb(17, 168, 255);
+  color: #000000;
+}
+
+.adopted:focus,
+.adopted:hover {
+  background: rgb(17, 168, 255);
+  box-shadow: 0 0 0 3px rgb(142, 211, 243), 0 0 0 4px rgb(17, 168, 255);
+  border-color: initial;
 }
