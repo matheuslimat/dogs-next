@@ -20,7 +20,7 @@ export default async function ContaPage() {
           <p
             style={{ color: '#444', fontSize: '1.25rem', marginBottom: '1rem' }}
           >
-            Você ainda não colocou um cachorro para adoção.
+            Você não tem cachorros para adoção.
           </p>
           <Link
             href={'/conta/postar'}

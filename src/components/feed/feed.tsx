@@ -87,7 +87,7 @@ export default function Feed({
       setDirection(1);
       setView('adopted');
       setLoading(true);
-      const actionData = await photosGet({ adotado: true });
+      const actionData = await photosGet({ user, adotado: true });
       if (actionData && actionData.data) {
         setAdoptedPhotos(actionData.data);
         setFilteredAdoptedPhotos(actionData.data);
