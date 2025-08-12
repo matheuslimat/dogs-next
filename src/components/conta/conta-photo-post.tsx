@@ -74,14 +74,26 @@ export default function ContaPhotoPost() {
           maxLength={15}
           required
         />
-        <input
-          onChange={handleImgChange}
-          type="file"
-          name="img"
-          id="img"
-          className={styles.file}
-          required
-        />
+        <div className={styles.fileContainer}>
+          <label htmlFor="img" className={styles.fileLabel}>
+            <span className={styles.fileIcon}>📷</span>
+            <span className={styles.fileText}>
+              {img ? 'Foto selecionada' : 'Escolher foto'}
+            </span>
+            <span className={styles.fileDescription}>
+              Clique para selecionar uma imagem do seu cachorro
+            </span>
+          </label>
+          <input
+            onChange={handleImgChange}
+            type="file"
+            name="img"
+            id="img"
+            className={styles.file}
+            accept="image/*"
+            required
+          />
+        </div>
         <ErrorMessage error={state.error} />
         <FormButton />
       </form>

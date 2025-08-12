@@ -4,6 +4,11 @@
   height: 10rem;
   text-align: center;
   color: #000000;
+  transition: background-color 0.3s ease;
+}
+
+[data-theme="dark"] .footer {
+  background: rgb(15, 140, 210);
 }
 
 .footer p {

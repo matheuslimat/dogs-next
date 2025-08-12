@@ -4,7 +4,8 @@
   gap: 0.75rem; /* Espaço entre os elementos */
   font-family: var(--type-first);
   font-size: 0.875rem;
-  color: #666;
+  color: var(--text-color);
+  opacity: 0.8;
 }
 
 .label {
@@ -34,7 +35,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc; /* Cor do fundo do botão (cinza desligado) */
+  background-color: var(--border-color); /* Cor do fundo do botão (cinza desligado) */
   transition: 0.3s;
   border-radius: 6px; /* Bordas levemente arredondadas para um look moderno */
 }
@@ -47,7 +48,7 @@
   width: 20px; /* Largura do pino */
   left: 4px;
   bottom: 4px;
-  background-color: white;
+  background-color: var(--bg-color);
   transition: 0.3s;
   border-radius: 4px; /* Bordas do pino */
 }
