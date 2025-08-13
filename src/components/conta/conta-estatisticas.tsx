@@ -206,7 +206,7 @@ export default function ContaEstatisticas({ data }: { data: StatsData[] }) {
               <path d="M3 13h2v8H3v-8zm4-6h2v14H7V7zm4-4h2v18h-2V3zm4 9h2v9h-2v-9zm4-3h2v12h-2V9z" fill="currentColor"/>
             </svg>
           </div>
-          <h3 className={styles.cardTitle}>Comparativo de Acessos</h3>
+          <h3 className={styles.cardTitle}>Distribuição por Acessos</h3>
         </div>
         <div className={styles.chartWrapper}>
             <VictoryChart
@@ -256,7 +256,7 @@ export default function ContaEstatisticas({ data }: { data: StatsData[] }) {
                     fontSize: 11,
                     fill: 'var(--text-color)',
                     fontWeight: 500,
-                    padding: 10
+                    padding: 20
                   },
                   grid: {
                     stroke: 'var(--border-color)',
