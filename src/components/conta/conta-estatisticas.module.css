@@ -1,32 +1,270 @@
-.graph {
+/* Container principal com grid moderno */
+.container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 2rem;
-  margin-bottom: 2rem;
-  color: var(--text-color);
-}
-
-.graphItem {
-  box-shadow: 0 10px 20px var(--shadow-color);
-  border-radius: 0.2rem;
-  display: grid;
-  align-items: center;
-  background: var(--bg-color);
-  color: var(--text-color);
-}
-
-.total {
-  grid-column: 1 /3;
   padding: 2rem;
-  font-size: 2rem;
-  color: var(--text-color);
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
 }
 
-@media (max-width: 40rem) {
-  .graph {
+/* Estilos base para todos os cards */
+.card {
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border-color: var(--primary-color);
+}
+
+/* Card de total de acessos - ocupa toda a largura */
+.totalCard {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, var(--bg-color) 0%, var(--bg-secondary) 100%);
+  border: 2px solid var(--primary-color);
+  position: relative;
+}
+
+.totalCard::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #6366f1, #8b5cf6, #ec4899, #f59e0b);
+  border-radius: 1rem;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.totalCard:hover::after {
+  opacity: 0.1;
+}
+
+/* Cards de gráficos */
+.chartCard {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header dos cards */
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-radius: 0.75rem;
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.3);
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+  letter-spacing: -0.025em;
+}
+
+/* Conteúdo do card de total */
+.cardContent {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.counterWrapper {
+  margin-bottom: 1rem;
+}
+
+.counter {
+  font-size: 4rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  text-shadow: 0 4px 8px rgba(99, 102, 241, 0.3);
+}
+
+.cardSubtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Wrapper dos gráficos */
+.chartWrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .container {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1rem;
   }
-  .total {
+  
+  .totalCard {
     grid-column: 1;
   }
+  
+  .card {
+    padding: 1rem;
+  }
+  
+  .cardHeader {
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  .iconWrapper {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  
+  .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  
+  .cardTitle {
+    font-size: 1.125rem;
+  }
+  
+  .counter {
+    font-size: 3rem;
+  }
+  
+  .chartCard {
+    min-height: 350px;
+  }
+  
+  .chartWrapper {
+    min-height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.75rem;
+    gap: 1rem;
+  }
+  
+  .card {
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+  }
+  
+  .counter {
+    font-size: 2.5rem;
+  }
+  
+  .cardContent {
+    padding: 1.5rem 0;
+  }
+}
+
+/* Tema escuro */
+[data-theme="dark"] .card {
+  background: var(--bg-color);
+  border-color: var(--border-color);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .totalCard {
+  background: linear-gradient(135deg, var(--bg-color) 0%, var(--bg-secondary) 100%);
+}
+
+[data-theme="dark"] .iconWrapper {
+  box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.4);
+}
+
+[data-theme="dark"] .counter {
+  text-shadow: 0 4px 8px rgba(99, 102, 241, 0.4);
+}
+
+/* Animações personalizadas */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.card:hover .iconWrapper {
+  animation: pulse 2s infinite;
+}
+
+.totalCard:hover .counter {
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
 }
