@@ -142,54 +142,55 @@ export default function ContaEstatisticas({ data }: { data: StatsData[] }) {
           <h3 className={styles.cardTitle}>Distribuição por Acessos</h3>
         </div>
         <div className={styles.chartWrapper}>
-          <VictoryPie
-            data={graph}
-            labelComponent={<VictoryTooltip 
-              pointerLength={0} 
-              cornerRadius={8} 
-              flyoutStyle={{ 
-                fill: "var(--bg-color)", 
-                stroke: "var(--border-color)",
-                strokeWidth: 1,
-                filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))"
-              }} 
-              style={{ 
-                fill: "var(--text-color)",
-                fontSize: 12,
-                fontWeight: 500
-              }} 
-            />}
-            innerRadius={60}
-            padAngle={2}
-            padding={{ top: 20, bottom: 20, left: 80, right: 80 }}
-            colorScale={[
-              '#6366f1', // Indigo
-              '#8b5cf6', // Violet  
-              '#ec4899', // Pink
-              '#f59e0b', // Amber
-              '#10b981', // Emerald
-              '#3b82f6', // Blue
-              '#ef4444', // Red
-              '#84cc16'  // Lime
-            ]}
-            animate={{
-              duration: 1500,
-              onLoad: { duration: 1000 }
-            }}
-            style={{
-              data: {
-                fillOpacity: 0.9,
-                stroke: '#fff',
-                strokeWidth: 2,
-              },
-              labels: {
-                fontSize: 11,
-                fill: 'var(--text-color)',
-                fontWeight: 500
-              },
-            }}
-          />
-        </div>
+            <VictoryPie
+              data={graph}
+              labelComponent={<VictoryTooltip 
+                pointerLength={0} 
+                cornerRadius={8}
+                constrainToVisibleArea
+                flyoutStyle={{ 
+                  fill: "var(--bg-color)", 
+                  stroke: "var(--border-color)",
+                  strokeWidth: 1,
+                  filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))"
+                }} 
+                style={{ 
+                  fill: "var(--text-color)",
+                  fontSize: 12,
+                  fontWeight: 500
+                }} 
+              />}
+              innerRadius={60}
+              padAngle={2}
+              padding={{ top: 30, bottom: 30, left: 80, right: 80 }}
+              colorScale={[
+                '#6366f1', // Indigo
+                '#8b5cf6', // Violet  
+                '#ec4899', // Pink
+                '#f59e0b', // Amber
+                '#10b981', // Emerald
+                '#3b82f6', // Blue
+                '#ef4444', // Red
+                '#84cc16'  // Lime
+              ]}
+              animate={{
+                duration: 1500,
+                onLoad: { duration: 1000 }
+              }}
+              style={{
+                data: {
+                  fillOpacity: 0.9,
+                  stroke: '#fff',
+                  strokeWidth: 2
+                },
+                labels: {
+                  fontSize: 11,
+                  fill: 'var(--text-color)',
+                  fontWeight: 500
+                },
+              }}
+            />
+          </div>
       </motion.div>
 
       {/* Card do Gráfico de Barras */}
@@ -208,77 +209,78 @@ export default function ContaEstatisticas({ data }: { data: StatsData[] }) {
           <h3 className={styles.cardTitle}>Comparativo de Acessos</h3>
         </div>
         <div className={styles.chartWrapper}>
-          <VictoryChart
-            padding={{ left: 80, top: 20, right: 40, bottom: 80 }}
-            animate={{
-              duration: 1500,
-              onLoad: { duration: 1000 }
-            }}
-          >
-            <VictoryBar
-              data={graph}
-              labelComponent={<VictoryTooltip 
-                pointerLength={0} 
-                cornerRadius={8} 
-                flyoutStyle={{ 
-                  fill: "var(--bg-color)", 
-                  stroke: "var(--border-color)",
-                  strokeWidth: 1,
-                  filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))"
-                }} 
-                style={{ 
-                  fill: "var(--text-color)",
-                  fontSize: 12,
-                  fontWeight: 500
-                }} 
-              />}
-              style={{ 
-                data: { 
-                  fill: ({ datum }) => {
-                    const colors = ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#84cc16'];
-                    return colors[datum._x % colors.length];
-                  },
-                  fillOpacity: 0.8,
-                  stroke: '#fff',
-                  strokeWidth: 1
-                } 
-              }}
+            <VictoryChart
+              padding={{ left: 80, top: 20, right: 40, bottom: 100 }}
               animate={{
                 duration: 1500,
                 onLoad: { duration: 1000 }
               }}
-            />
-            <VictoryAxis
-              dependentAxis
-              style={{
-                tickLabels: {
-                  fontSize: 11,
-                  fill: 'var(--text-color)',
-                  fontWeight: 500
-                },
-                grid: {
-                  stroke: 'var(--border-color)',
-                  strokeOpacity: 0.3
-                }
-              }}
-            />
-            <VictoryAxis
-              style={{
-                tickLabels: {
-                  fontSize: 10,
-                  angle: -45,
-                  textAnchor: 'end',
-                  padding: 5,
-                  fill: 'var(--text-color)',
-                  fontWeight: 500
-                },
-                axis: {
-                  stroke: 'var(--border-color)'
-                }
-              }}
-            />
-          </VictoryChart>
-        </div>
+            >
+              <VictoryBar
+                data={graph}
+                labelComponent={<VictoryTooltip 
+                  pointerLength={0} 
+                  cornerRadius={8} 
+                  flyoutStyle={{ 
+                    fill: "var(--bg-color)", 
+                    stroke: "var(--border-color)",
+                    strokeWidth: 1,
+                    filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))"
+                  }} 
+                  style={{ 
+                    fill: "var(--text-color)",
+                    fontSize: 12,
+                    fontWeight: 500
+                  }} 
+                />}
+                style={{ 
+                  data: { 
+                    fill: ({ datum }) => {
+                      const colors = ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#84cc16'];
+                      return colors[datum._x % colors.length];
+                    },
+                    fillOpacity: 0.8,
+                    stroke: '#fff',
+                    strokeWidth: 1
+                  } 
+                }}
+                animate={{
+                  duration: 1500,
+                  onLoad: { duration: 1000 }
+                }}
+              />
+              <VictoryAxis
+                dependentAxis
+                style={{
+                  tickLabels: {
+                    fontSize: 11,
+                    fill: 'var(--text-color)',
+                    fontWeight: 500,
+                    padding: 10
+                  },
+                  grid: {
+                    stroke: 'var(--border-color)',
+                    strokeOpacity: 0.3
+                  }
+                }}
+              />
+              <VictoryAxis
+                style={{
+                  tickLabels: {
+                    fontSize: 10,
+                    angle: -45,
+                    textAnchor: 'end',
+                    padding: 5,
+                    fill: 'var(--text-color)',
+                    fontWeight: 500
+                  },
+                  axis: {
+                    stroke: 'var(--border-color)'
+                  }
+                }}
+              />
+            </VictoryChart>
+          </div>
       </motion.div>
     </motion.section>
   );
