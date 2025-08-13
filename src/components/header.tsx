@@ -1,10 +1,13 @@
+'use client';
+
 import Link from 'next/link';
 import styles from './header.module.css';
 import Image from 'next/image';
-import userGet from '@/actions/user-get';
+import { useUser } from '@/context/user-context';
+import ThemeToggle from './theme-toggle';
 
-export default async function Header() {
-  const { data } = await userGet();
+export default function Header() {
+  const { user } = useUser();
 
   return (
     <header className={styles.header}>
@@ -18,15 +21,18 @@ export default async function Header() {
             priority
           />
         </Link>
-        {data ? (
-          <Link className={styles.login} href={'/conta'}>
-            {data.username}
-          </Link>
-        ) : (
-          <Link className={styles.login} href={'/login'}>
-            Login / Criar
-          </Link>
-        )}
+        <div className={styles.rightSection}>
+          <ThemeToggle />
+          {user ? (
+            <Link className={styles.login} href={'/conta'}>
+              {user.username}
+            </Link>
+          ) : (
+            <Link className={styles.login} href={'/login'}>
+              Login / Criar
+            </Link>
+          )}
+        </div>
       </nav>
     </header>
   );

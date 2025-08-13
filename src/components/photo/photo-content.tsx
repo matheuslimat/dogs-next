@@ -14,6 +14,7 @@ import VelaIcon from '@/icons/VelaIcon';
 import PrediosIcon from '@/icons/PrediosIcon';
 import PhotoAdoptButton from './photo-adopt-button';
 
+
 const PhotoContent = ({
   data,
   single,
@@ -37,7 +38,7 @@ const PhotoContent = ({
       </div>
       <div className={styles.details}>
         <div>
-          <p className={styles.author}>
+          <div className={styles.author}>
             {user && user.username === photo.author ? (
               <div style={{ display: 'flex', gap: '0.5rem' }}>
                 <PhotoDelete id={String(photo.id)} />
@@ -58,7 +59,7 @@ const PhotoContent = ({
                 </a>
               )}
             </span>
-          </p>
+          </div>
           <h1 className="title">
             <Link href={`/foto/${photo.id}`}>{photo.title}</Link>
           </h1>

@@ -42,7 +42,7 @@ export default function ContaEstatisticas({ data }: { data: StatsData[] }) {
         <VictoryPie
           data={graph}
           // O 'labelComponent' agora é um Tooltip. Ele usará a propriedade 'label' dos dados.
-          labelComponent={<VictoryTooltip pointerLength={0} cornerRadius={4} flyoutStyle={{ fill: "white", stroke: "#ccc" }} />}
+          labelComponent={<VictoryTooltip pointerLength={0} cornerRadius={4} flyoutStyle={{ fill: "var(--bg-color)", stroke: "var(--border-color)" }} style={{ fill: "var(--text-color)" }} />}
           innerRadius={50}
           padding={{ top: 20, bottom: 20, left: 80, right: 80 }}
           colorScale={['#11a8ff', '#fb1', '#ffd', '#efd', '#dff']}
@@ -55,7 +55,7 @@ export default function ContaEstatisticas({ data }: { data: StatsData[] }) {
             // Os labels padrão agora são menores para não sobrepor
             labels: {
               fontSize: 12,
-              fill: '#333',
+              fill: 'var(--text-color)',
             },
           }}
         />
@@ -66,7 +66,7 @@ export default function ContaEstatisticas({ data }: { data: StatsData[] }) {
             alignment="start"
             data={graph}
             // O 'labelComponent' aqui também é um Tooltip para as barras
-            labelComponent={<VictoryTooltip pointerLength={0} cornerRadius={4} flyoutStyle={{ fill: "white", stroke: "#ccc" }} />}
+            labelComponent={<VictoryTooltip pointerLength={0} cornerRadius={4} flyoutStyle={{ fill: "var(--bg-color)", stroke: "var(--border-color)" }} style={{ fill: "var(--text-color)" }} />}
             style={{ data: { fill: '#11a8ff' } }}
           />
           {/* Para o gráfico de barras, ainda rotacionamos o eixo para melhor visualização */}
@@ -77,6 +77,7 @@ export default function ContaEstatisticas({ data }: { data: StatsData[] }) {
                 angle: -45,
                 textAnchor: 'end',
                 padding: 5,
+                fill: 'var(--text-color)',
               },
             }}
           />

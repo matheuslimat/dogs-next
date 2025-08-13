@@ -1,0 +1,60 @@
+.themeToggle {
+  background: #eee;
+  border: 1px solid transparent;
+  border-radius: 0.4rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #333;
+  margin-right: 1rem;
+}
+
+.themeToggle:hover {
+  background: white;
+  box-shadow: 0 0 0 3px #eee;
+  border-color: #333;
+}
+
+.themeToggle:focus {
+  outline: none;
+  background: white;
+  box-shadow: 0 0 0 3px rgb(142, 211, 243);
+  border-color: rgb(17, 168, 255);
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  color: inherit;
+}
+
+/* Dark mode styles */
+[data-theme="dark"] .themeToggle {
+  background: #2a2a2a;
+  color: #ffd700;
+  border-color: #444;
+}
+
+[data-theme="dark"] .themeToggle:hover {
+  background: #333;
+  box-shadow: 0 0 0 3px #444;
+  border-color: #666;
+}
+
+[data-theme="dark"] .themeToggle:focus {
+  background: #333;
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3);
+  border-color: #ffd700;
+}

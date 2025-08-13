@@ -3,19 +3,23 @@
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   margin-bottom: 2rem;
+  color: var(--text-color);
 }
 
 .graphItem {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px var(--shadow-color);
   border-radius: 0.2rem;
   display: grid;
   align-items: center;
+  background: var(--bg-color);
+  color: var(--text-color);
 }
 
 .total {
   grid-column: 1 /3;
   padding: 2rem;
   font-size: 2rem;
+  color: var(--text-color);
 }
 
 @media (max-width: 40rem) {

@@ -1,6 +1,6 @@
 /* Estilo base, similar ao de deletar */
 .button {
-  background: #ddd;
+  background: var(--input-bg);
   padding: 0.3rem 0.6rem;
   line-height: 1;
   border: 1px solid transparent;
@@ -9,14 +9,15 @@
   cursor: pointer;
   border-radius: 0.4rem;
   transition: 0.1s;
+  color: var(--text-color);
 }
 
 .button:focus,
 .button:hover {
   outline: none;
-  background: white;
-  box-shadow: 0 0 0 3px #eee;
-  border-color: #333;
+  background: var(--bg-color);
+  box-shadow: 0 0 0 3px var(--border-color);
+  border-color: var(--text-color);
 }
 
 /* Novo estilo para o botão quando o pet está adotado */

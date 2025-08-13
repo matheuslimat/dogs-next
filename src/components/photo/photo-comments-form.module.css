@@ -15,25 +15,26 @@
   font-size: 1rem;
   font-family: var(--type-first);
   resize: none;
-  border: 1px solid #eee;
+  border: 1px solid var(--border-color);
   padding: 0.5rem;
   border-radius: 0.2rem;
-  background: #eee;
+  background: var(--input-bg);
   transition: 0.2s;
+  color: var(--text-color);
 }
 
 .textarea:focus,
 .textarea:hover {
   outline: none;
   border-color: rgb(17, 168, 255);
-  background: white;
+  background: var(--bg-color);
   box-shadow: 0 0 0 3px rgb(142, 211, 243);
 }
 
 .button {
   border: none;
   cursor: pointer;
-  color: #333;
+  color: var(--text-color);
   background: transparent;
   font-size: 1rem;
   padding: 0 0.3rem;
