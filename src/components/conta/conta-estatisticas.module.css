@@ -93,7 +93,7 @@
   height: 3rem;
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   border-radius: 0.75rem;
-  color: white;
+  color: var(--text-color);
   box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.3);
 }
 
