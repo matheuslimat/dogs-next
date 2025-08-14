@@ -8,7 +8,12 @@
 }
 
 [data-theme="dark"] .footer {
-  background: rgb(15, 140, 210);
+  background: #2c3e50;
+  color: white;
+}
+
+[data-theme="dark"] .footer img {
+  filter: brightness(0) invert(1);
 }
 
 .footer p {

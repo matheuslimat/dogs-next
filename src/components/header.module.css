@@ -21,6 +21,32 @@
 .rightSection {
   display: flex;
   align-items: center;
+  gap: 1rem;
+}
+
+.donateButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  color: white;
+  border-radius: 2rem;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+}
+
+.donateButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+}
+
+.donateButton svg {
+  width: 16px;
+  height: 16px;
 }
 
 .login {
@@ -56,4 +82,31 @@
 
 [data-theme="dark"] .logo img {
   filter: invert(1);
+}
+
+[data-theme="dark"] .donateButton {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.4);
+}
+
+[data-theme="dark"] .donateButton:hover {
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.5);
+}
+
+@media (max-width: 768px) {
+  .donateButton span {
+    display: none;
+  }
+  
+  .donateButton {
+    padding: 0.5rem;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+  }
+  
+  .rightSection {
+    gap: 0.5rem;
+  }
 }

@@ -5,6 +5,7 @@ import styles from './header.module.css';
 import Image from 'next/image';
 import { useUser } from '@/context/user-context';
 import ThemeToggle from './theme-toggle';
+import CoracaoIcon from '@/icons/coracao-icon';
 
 export default function Header() {
   const { user } = useUser();
@@ -22,6 +23,10 @@ export default function Header() {
           />
         </Link>
         <div className={styles.rightSection}>
+          <Link className={styles.donateButton} href={'/doacao'}>
+            <CoracaoIcon />
+            <span>Doar</span>
+          </Link>
           <ThemeToggle />
           {user ? (
             <Link className={styles.login} href={'/conta'}>
