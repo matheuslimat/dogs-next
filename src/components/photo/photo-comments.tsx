@@ -2,6 +2,7 @@
 
 import React from 'react';
 import PhotoCommentsForm from './photo-comments-form';
+import PhotoCommentsFormGuest from './photo-comments-form-guest';
 import styles from './photo-comments.module.css';
 import { useUser } from '@/context/user-context';
 import { Comment } from '@/actions/photo-get';
@@ -48,11 +49,16 @@ const PhotoComments = (props: {
           </div>
         ))}
       </ul>
-      {user && (
+      {user ? (
         <PhotoCommentsForm
           single={props.single}
           id={props.id}
           setComments={setComments}
+          photo={props.photo}
+        />
+      ) : (
+        <PhotoCommentsFormGuest
+          single={props.single}
           photo={props.photo}
         />
       )}
