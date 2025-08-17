@@ -2,7 +2,7 @@
 import React from 'react';
 import styles from './photo-comments.module.css';
 import commentDelete from '@/actions/comment-delete';
-import { Comment } from '@/actions/photos-get';
+import { Comment } from '@/actions/photo-get';
 import { useRouter } from 'next/navigation';
 
 type CommentUpdater = React.Dispatch<React.SetStateAction<Comment[]>>;

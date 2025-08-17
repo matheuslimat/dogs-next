@@ -33,7 +33,7 @@ const qrCodeVariants = {
     scale: 1,
     transition: {
       duration: 0.7,
-      type: "spring",
+      type: "spring" as const,
       stiffness: 100
     }
   }
